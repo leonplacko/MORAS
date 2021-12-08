@@ -1,0 +1,13 @@
+CHIP TwosCompl{
+
+    IN in[16];
+    OUT out[16];
+
+    PARTS:
+    Not16(in = in, out = notA);
+
+    And16(a = false, b = false, out[1..15] = false, out[0] = suvil);
+    And(a = true, b = true, out = jedan);
+    Add16(a = notA, b[0] = jedan, b[1..15] = false, out = out);
+
+}

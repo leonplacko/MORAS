@@ -1,0 +1,11 @@
+CHIP ZADjedan{
+
+	IN x, y, z;
+	OUT out;
+
+	PARTS:
+	
+	And(a = x, b = y, out = andxy);
+	Not(in = andxy, out = out);
+
+}
