@@ -1,0 +1,30 @@
+sp
+push constant 5
+push constant 2
+call mod 2
+pop static 0
+ep
+
+function mod 2
+push argument 0 
+pop local 0
+push argument 1
+pop local 1
+label LOOP
+push local 0
+push local 1
+gt
+push local 0
+push local 1
+eq
+or
+if-goto END
+push local 0
+push local 1
+sub
+pop local 0
+goto LOOP
+label END
+push local 0
+return
+

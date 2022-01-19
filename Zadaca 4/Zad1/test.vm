@@ -1,0 +1,10 @@
+push constant 1
+push constant 1
+eq
+pop local 0
+push constant 7
+eq
+pop temp 1
+add
+goto LABELA
+label LAB

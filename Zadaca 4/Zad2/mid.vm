@@ -1,0 +1,55 @@
+sp
+push constant 5
+push constant 2
+push constant 7
+call mid 3
+pop static 0
+ep
+
+
+function mid 3
+push argument 0
+pop local 0
+push argument 1
+pop local 1
+push argument 2
+pop local 2
+push local 0
+push local 1
+gt
+if-goto PRVI1
+goto DRUGI1
+label PRVI1
+push local 2
+push local 0
+gt
+if-goto PRVIDA
+goto PRVI2
+label PRVI2
+push local 1
+push local 2
+gt
+if-goto DRUGIDA
+goto TRECIDA
+label DRUGI1
+push local 2
+push local 1
+gt
+if-goto DRUGIDA
+goto DRUGI2
+label DRUGI2
+push local 0
+push local 2
+gt
+if-goto PRVIDA
+goto TRECIDA
+label PRVIDA
+push local 0
+return
+label DRUGIDA
+push local 1
+return
+label TRECIDA
+push local 2
+return 
+
