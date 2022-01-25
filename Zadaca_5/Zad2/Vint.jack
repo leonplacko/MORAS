@@ -1,0 +1,179 @@
+class Vint
+{
+    field int size;
+    field Array A;
+
+    constructor Vint new(int n)
+    {
+        var int nula, i, broj, dva;
+        let dva = 2;
+
+        do Math.init();
+
+        let broj = Vint.pow(dva, n);
+        
+        let size = broj;
+        let A = Array.new(size);
+        return this;
+
+    }
+
+    method void set(int k, int v)
+    {
+        let A[k] = v;
+        return;
+    }
+
+    method int get(int k)
+    {
+        var int v;
+        let v = A[k];
+        return v;
+    }
+
+    method void resize(int m)
+    {
+        var int f, dva, i;
+        var Array B;
+        let dva = 2;
+        let f = Vint.pow(dva, m);
+        
+        if (f > size)
+        {
+            let B = Array.new(f);
+            while (i < size)
+            {
+                let B[i] = A[i];
+                let i = i + 1;
+            }
+
+            let size = f;
+            do A.dispose();
+            let A = B;
+            do B.dispose();
+            
+        }
+
+
+        return;
+
+    }
+
+    method int len()
+    {
+        return size;
+    }
+
+    function bool is_eq(Vint first, Vint second)
+    {
+        var int i, nFirst, nSecond;
+        var Array C, D;
+
+        let nFirst = first.len();
+        let nSecond = second.len();
+        let C = first.getArr();
+        let D = second.getArr();
+
+        if (~(nFirst = nSecond))
+        {
+            return false;
+        }
+
+        while (i < nFirst)
+        {
+            if (~(C[i] = D[i]))
+            {
+                return false;
+            }
+            let i = i + 1;
+        }
+        
+        do C.dispose();
+        do D.dispose();
+        return true;
+    }
+
+    function bool elems(Vint first, Vint second)
+    {
+        var int i, j, nFirst, nSecond;
+        var Array C, D;
+        var bool ret;
+
+        let nFirst = first.len();
+        let nSecond = second.len();
+        let C = first.getArr();
+        let D = second.getArr();
+        let ret = false;
+
+        if (~(nFirst = nSecond))
+        {
+            return false;
+        }
+
+        while (i < nFirst)
+        {
+            while (j < nFirst)
+            {
+                if (C[i] = D[j])
+                {
+                    let ret = true;
+                }
+                let j = j + 1;
+            }
+
+            if (~(ret))
+            {
+                return false;
+            }
+
+            let ret = false;
+            let i = i + 1;
+            let j = 0;
+        }
+
+        do C.dispose();
+        do D.dispose();
+
+        return true;
+
+    }
+
+    
+
+    method void destroy()
+    {
+        do A.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    function int pow(int a, int b)
+    {
+        var int r, broj;
+        let broj = 1;
+        let r = 1;
+
+        if (b < r)
+        {
+            return broj;
+        }
+        if (b = r)
+        {
+            return broj;
+        }
+        let broj = a;
+
+        while (r < b)
+        {
+            let broj = Math.multiply(broj, a);
+            let r = r + 1;
+        }
+
+        return broj;
+    }
+
+    method Array getArr()
+    {
+        return A;
+    }
+}

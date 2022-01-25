@@ -1,0 +1,7 @@
+class Fn
+{
+    function void fn()
+    {
+        return;
+    }
+}

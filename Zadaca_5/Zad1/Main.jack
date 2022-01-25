@@ -1,0 +1,94 @@
+class Main
+{
+    function void main()
+    {
+        var Array A;
+        var int len, i, low, high;
+
+        let len = Keyboard.readInt("Unesite duljinu polja: ");
+        
+        let low = 0;
+        let A = Array.new(len);
+        let high = len - 1;
+
+        while (i < len)
+        {
+            do Output.printString("Unesite element ");
+            do Output.printInt(i);
+            do Output.printString(": ");
+            let A[i] = Keyboard.readInt("");
+            let i = i + 1;
+            
+        }
+        let i = 0;
+
+        do Main.sort(A, low, high);
+
+        do Output.println();
+        do Output.printString("Sortirano polje: ");
+
+        while (i < len)
+        {
+            do Output.printInt(A[i]);
+            do Output.printString(" "); 
+            let i = i + 1; 
+        }
+
+        do A.dispose();
+        return;
+    }
+
+    function void sort(Array A, int low, int high)
+    {
+        var int q, pret, sljed;
+
+        if (low < high)
+        {
+            let q = Main.partition(A, low, high);
+            let pret = q - 1;
+            let sljed = q + 1;
+
+            do Main.sort(A, low, pret);
+            do Main.sort(A, sljed, high);
+        }
+
+        return;
+    }
+
+    function int partition(Array A, int low, int high)
+    {
+        var int j, k, jm, pivot;
+
+        let pivot = A[high];
+        let j = low - 1;
+        let k = low;
+        
+        while (k < high)
+        {
+            if (A[k] < pivot)
+            {
+                let j = j + 1;
+                do Main.swap(A, j, k);
+            }
+
+            let k = k + 1;
+        }
+
+        let jm = j + 1;
+        do Main.swap(A, jm, high);
+                
+        return jm;
+    }
+
+    function void swap(Array A, int a, int b)
+    {
+        var int c;
+        let c = A[a];
+        let A[a] = A[b];
+        let A[b] = c;
+
+        return;
+    }
+
+
+}

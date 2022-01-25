@@ -1,0 +1,47 @@
+class Main
+{
+    function void main()
+    {
+        var Vint V, W;
+        var bool b;
+        let V = Vint.new(2);
+        let W = Vint.new(3);
+
+        do Output.printInt(V.len());
+        do Output.println();
+        let b = Vint.is_eq(V, W);
+
+        if (b)
+        {
+            do Output.printString("da");
+            do Output.println();
+        }
+        if (~b)
+        {
+            do Output.printString("ne");
+            do Output.println();
+        }
+
+        do V.resize(3);
+        do Output.println();
+        do Output.printInt(V.len());
+        do Output.println();
+
+        let b = Vint.is_eq(V, W);
+        if (b)
+        {
+            do Output.printString("da");
+            do Output.println();
+        }
+        if (~b)
+        {
+            do Output.printString("ne");
+            do Output.println();
+        }
+
+
+        do W.destroy();
+        do V.destroy();
+        return;
+    }
+}
