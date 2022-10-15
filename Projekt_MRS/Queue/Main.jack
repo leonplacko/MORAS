@@ -1,0 +1,49 @@
+class Main{
+
+    function void main(){
+
+        var Queue q1, q2;
+
+        let q1 = Queue.new(3, true);
+        let q2 = Queue.new(6, false);
+
+        do q1.enqueue(1);
+        do q1.enqueue(2);
+        do q1.enqueue(3);
+        do q1.enqueue(4);
+        do q1.enqueue(5);
+        do Output.printInt(q1.peek());
+        do Output.println();
+        do q1.print();
+        do q1.dequeue();
+        do q1.dequeue();
+        //do q1.print();
+
+        do q2.enqueue(1);
+        do q2.enqueue(22);
+        do q2.enqueue(3);
+        do q2.enqueue(43);
+        do q2.enqueue(52);
+        do q2.enqueue(51);
+        do q2.enqueue(50);
+        do q2.print(); 
+        do q2.dequeue();
+        do q2.dequeue();
+        do q2.print();
+        do q2.enqueue(2);
+        do q2.enqueue(3);
+        do q2.print();     
+
+        
+        do q1.destroy();
+        do q2.clear();
+        do q2.print();
+        do q2.destroy();
+
+
+        return;
+        
+    }
+
+
+}

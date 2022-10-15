@@ -1,0 +1,30 @@
+class Main{
+
+    function void main(){
+
+
+        var HashTable h1;
+
+        let h1 = HashTable.new(5);
+
+        do h1.set(12);
+        do h1.set(102);
+        do h1.set(54);
+        do h1.set(55);
+        do h1.set(86);
+        do h1.set(33);
+        do h1.set(21);
+        do h1.set(8);
+        do h1.set(1);
+
+        do h1.print();
+
+        do h1.destroy();
+
+        
+        return;
+        
+    }
+
+
+}

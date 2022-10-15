@@ -1,0 +1,127 @@
+class Vector{
+    
+    field int size, arrsize;
+    field Array A;
+
+    constructor Vector new()
+    {
+        do Math.init();
+        let arrsize = 1;
+        let size = 0;
+        let A = Array.new(1);
+        return this;
+
+    }
+
+    method void set(int k, int v)
+    {
+        if(k < size){
+            let A[k] = v;
+        }else{
+            do Output.printString("invalid");
+        }
+        
+        return;
+    }
+
+    method int get(int k)
+    {
+        var int v;
+        if(k < size){
+            let v = A[k];
+        }else{
+            do Output.printString("invalid");
+        }
+        
+        return v;
+    }
+
+    method void push_back(int a){
+        
+        var int pos;
+
+        let size = size + 1;
+        let pos = size - 1;
+        if (size > arrsize){
+
+            do resize();
+            let A[pos] = a;
+        }else{
+            
+            let A[pos] = a;
+        }
+
+        return;
+    }
+
+    method void resize()
+    {
+        var int newsize, i;
+        var Array B;
+
+        let newsize = Math.multiply(2, arrsize);
+        let B = Array.new(newsize);
+        
+        while(i < arrsize){
+            let B[i] = A[i];
+            let i = i + 1;
+        }
+
+        let arrsize = newsize;
+        do A.dispose();
+        let A = B;
+
+        return;
+    }
+
+    method int size()
+    {
+        return size;
+    }
+
+    method void print(){
+        var int i;
+                
+        do Output.printString("-----------------------------------");
+        do Output.println();
+        do Output.printString("Set elements: ");
+        
+        while(i < size){
+            do Output.printInt(A[i]);
+            do Output.printString(" ");
+            let i = i + 1;
+        }
+
+        do Output.println();
+        do Output.printString("with size: ");
+        do Output.printInt(size);
+        do Output.println();
+        do Output.printString("-----------------------------------");
+        do Output.println();
+
+        return;
+    }     
+
+    method void clear(){
+        var Array B;
+        do A.dispose();
+        let B = Array.new(1);
+        let size = 0;
+        let arrsize = 1;
+        let A = B;
+        return;
+    }
+
+    method void destroy()
+    {
+        do A.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method void reduce(){
+        let size = size - 1;
+        return;
+    }
+
+}

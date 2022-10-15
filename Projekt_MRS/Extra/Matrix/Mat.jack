@@ -1,0 +1,395 @@
+class Mat{
+    field Array data;
+    field int rownum, colnum;
+
+    //each element of data array points to an array which is a row in matrix
+
+    //default constructor
+    constructor Mat new(int r, int c){
+        var int i;
+        var Array temp;
+        let data = Array.new(r);
+        let rownum = r;
+        while(i < r){
+            let temp = Array.new(c);
+            let data[i] = temp;
+            let i = i + 1;
+        }
+        let colnum = c;
+        return this;
+    }
+
+    //sets data in designated slot
+    method void set(int r, int c, int el){
+        var Array temp;
+
+        if(r < rownum){
+            if(c < colnum){
+                let temp = data[r];
+                let temp[c] = el;
+            }else{
+                do Output.printString("Out of bound");
+                do Output.println();
+            }
+        }else{
+            do Output.printString("Out of bound");
+            do Output.println();
+        }
+
+        return;
+    }
+
+    //adds 2 matrixes
+    function Mat add(Mat first, Mat second){
+        var int row1, row2, col1, col2, i, j;
+        var Array data1, data2, temp1, temp2;
+        var Mat result;
+
+        let row1 = first.getrow();
+        let row2 = second.getrow();
+        let col1 = first.getcol();
+        let col2 = second.getcol();
+        let data1 = first.getdata();
+        let data2 = second.getdata();
+        
+        if(row1 = row2){
+            if(col1 = col2){
+
+                let result = Mat.new(row1, col1);
+
+                while(i < row1){
+                    let temp1 = data1[i];
+                    let temp2 = data2[i];
+                    while(j < col1){
+                        do result.set(i, j, temp1[j] + temp2[j]);
+                        let j = j + 1;
+                    }
+                    let i = i + 1;
+                    let j = 0;
+                }
+
+
+            }else{
+                do Output.printString("Missmatched number of col or row");
+                do Output.println();
+            }
+        }else{
+            do Output.printString("Missmatched number of col or row");
+            do Output.println();
+        }
+
+        return result;
+    }
+
+    //substracts 2 matrixes
+    function Mat sub(Mat first, Mat second){
+        var int row1, row2, col1, col2, i, j;
+        var Array data1, data2, temp1, temp2;
+        var Mat result;
+
+        let row1 = first.getrow();
+        let row2 = second.getrow();
+        let col1 = first.getcol();
+        let col2 = second.getcol();
+        let data1 = first.getdata();
+        let data2 = second.getdata();
+        
+        if(row1 = row2){
+            if(col1 = col2){
+
+                let result = Mat.new(row1, col1);
+
+                while(i < row1){
+                    let temp1 = data1[i];
+                    let temp2 = data2[i];
+                    while(j < col1){
+                        do result.set(i, j, temp1[j] - temp2[j]);
+                        let j = j + 1;
+                    }
+                    let i = i + 1;
+                    let j = 0;
+                }
+
+
+            }else{
+                do Output.printString("Missmatched number of col or row");
+                do Output.println();
+            }
+        }else{
+            do Output.printString("Missmatched number of col or row");
+            do Output.println();
+        }
+
+        return result;
+    }
+
+    //trace of matrix
+    method int trace(){
+        var int i, res;
+        var Array temp;
+
+        if(~(rownum = colnum)){
+            do Output.printString("unable to trace, not squared");
+            do Output.println();
+        }else{
+            while(i < rownum){
+                let temp = data[i];
+                let res = res + temp[i];
+                let i = i + 1;
+            }
+        }
+        return res;
+    }
+
+    //calculates product of 2 matrixes
+    function Mat prodMat(Mat first, Mat second){
+        var int i, j, k, res, row1, col1, row2, col2;
+        var Array temp1, temp2, data1, data2;
+        var Mat C;
+
+        let row1 = first.getrow();
+        let row2 = second.getrow();
+        let col1 = first.getcol();
+        let col2 = second.getcol();
+        let data1 = first.getdata();
+        let data2 = second.getdata();
+
+        if(~(col1 = row2)){
+            do Output.printstring("Incompatible matrixes to multiply");
+            do Output.println();
+        }else{
+            let C = Mat.new(row1, col2);
+            while(i < row1){
+                let temp1 = data1[i];
+                while(j < col2){
+                    
+                    while(k < row2){
+                        let temp2 = data2[k];
+                        let res = res + Math.multiply(temp1[k], temp2[j]);
+                        let k = k + 1;
+                    }
+                    do C.set(i, j, res);
+                    let res = 0;
+                    let j = j + 1;
+                    let k = 0;                    
+                }
+                let j = 0;
+                let i = i + 1;
+            }
+        }
+        return C;
+    }
+
+    //calculates the determinant of matrix
+    method int det(){
+        var int tempInt1, tempInt2, tempfinal, i, sign, mod, submdet;
+        var Array tempArray, firstrow;
+        var Mat subm;
+
+        
+        if(rownum = 2){
+            let tempArray = data[0];
+            let tempInt1 = tempArray[0];
+            let tempArray = data[1];
+            let tempInt2 = tempArray[1];
+            let tempfinal = Math.multiply(tempInt1, tempInt2);
+            let tempInt1 = tempArray[0];
+            let tempArray = data[0];
+            let tempInt2 = tempArray[1];
+
+            return tempfinal - Math.multiply(tempInt1, tempInt2);
+        }else{
+
+            let firstrow = data[0];
+
+            while(i < rownum){
+                let subm = submatrixfirst(i);
+                let mod = Mat.modular(i, 2);
+                if(mod = 0){
+                    let sign = 1;
+                }else{
+                    let sign = -1;
+                }
+                let submdet = subm.det();
+                do subm.destroy();
+                let tempfinal = tempfinal + Math.multiply(Math.multiply(sign, submdet), firstrow[i]);
+                let i = i + 1;
+            }
+
+            return tempfinal;
+
+        }
+    }
+
+    //multiplication matrix with vec but vec is on right side
+    function Vec prodVec(Mat matrix, Vec vector){
+        var int dim, row1, col1, i, j, res;
+        var Array temp, vecarr, datamat, datavec;
+        var Vec result;
+        
+                
+        let dim = vector.getdim();
+        let row1 = matrix.getrow();
+        let col1 = matrix.getcol();
+        let datamat = matrix.getdata();
+        let datavec = vector.getdata();
+        let vecarr = Array.new(row1);
+
+        if(~(dim = col1)){
+            do Output.printString("Mismatched dimension rownum");
+            do Output.println();
+        }else{
+            while(i < row1){
+                let temp = datamat[i];
+                while(j < col1){
+                    let res = res + Math.multiply(temp[j], datavec[j]);
+                    let j = j + 1; 
+                }
+                let vecarr[i] = res;
+                let res = 0;
+                let j = 0;
+                let i = i + 1;
+            }
+
+            let result = Vec.new(vecarr, row1);
+            return result;
+
+        }
+
+        return null;
+    }
+
+    //transponse matrix of the designated one
+    method Mat tr(){
+        var Mat transpon;
+        var int i, j, k;
+        var Array temp;
+
+        let transpon = Mat.new(colnum, rownum);
+
+        while(i < rownum){
+            let temp = data[i];
+            while(j < colnum){
+                do transpon.set(j, i, temp[j]);
+                let j = j + 1;
+            }
+            let j = 0;
+            let i = i + 1;
+        }
+
+        return transpon;
+
+    }
+
+    //calculates the submatrix based of the first row and given column (or pinpointed slot)
+    method Mat submatrixfirst(int pos){
+        var Mat subm;
+        var int i, j;
+        var Array temp;
+        var bool trig;
+
+        let trig = false;
+        
+        let i = 1;
+
+        if(rownum = 1){
+            if(colnum = 1){
+                return this;
+            }
+        }
+
+        let subm = Mat.new(rownum - 1, colnum - 1);
+
+        while(i < rownum){
+            let temp = data[i];
+            while(j < colnum){
+                if(~(j = pos)){
+                    if(trig){
+                        do subm.set(i - 1, j - 1, temp[j]);
+                    }else{
+                        do subm.set(i - 1, j, temp[j]);
+                    }
+                }else{
+                    let trig = true;
+                }
+                let j = j + 1;
+            }
+            let i = i + 1;
+            let trig = false;
+            let j = 0;
+
+        }
+
+        return subm;
+    }
+
+    //gets row number
+    method int getrow(){
+        return rownum;
+    }
+
+    //gets colnumber
+    method int getcol(){
+        return colnum;
+    }
+
+    //gets data
+    method Array getdata(){
+        return data;
+    }
+
+    //mod function
+    function int modular(int a, int b){
+        // a mod b = c
+        var int c, pom;
+        if (a < b){
+            let c = a;
+        }else{
+
+            let pom = Math.divide(a, b);
+            let c = a - Math.multiply(pom, b);
+        }
+
+        return c;
+    }
+
+    //my custom print
+    method void print(){
+        var int i, j;
+        var Array temp;
+        do Output.printString("Matrix: ");
+        do Output.println();
+        while(i < rownum){
+            let temp = data[i];
+            while(j < colnum){
+                do Output.printInt(temp[j]);
+                do Output.printString(" ");
+                let j = j + 1;
+            }
+            do Output.println();
+            let j = 0;
+            let i = i + 1;
+        }
+        do Output.printString("--------------------");
+        do Output.println();
+        return;
+
+    }
+
+    //destroys object
+    method void destroy(){
+        var Array temp;
+        var int i;
+        while(i < rownum){
+            let temp = data[i];
+            do temp.dispose();
+            let i = i + 1;
+        }
+        do data.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    
+    
+}

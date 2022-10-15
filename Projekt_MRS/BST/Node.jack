@@ -1,0 +1,52 @@
+class Node{
+
+    field int data;
+    field Node right, left, parent;
+
+    constructor Node new(int a){
+        let data = a;
+        let right = null;
+        let left = null;
+        let parent = null;
+        return this;
+    }
+
+
+    method void setupRight(Node n){
+        let right = n;
+        return;
+    }
+
+
+    method void setupLeft(Node n){
+        let left = n;
+        return;
+    }
+
+    method void setupParent(Node n){
+        let parent = n;
+        return;
+    }
+
+    method Node getRight(){
+        return right;
+    }
+
+    method Node getLeft(){
+        return left;
+    }
+
+    method int getdata(){
+        return data;
+    }
+
+    method Node getParent(){
+        return parent;
+    }
+
+    method void destroy(){
+        do Memory.deAlloc(this);
+        return;
+    }
+
+}

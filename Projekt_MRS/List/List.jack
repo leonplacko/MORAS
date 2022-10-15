@@ -1,0 +1,137 @@
+class List{
+    
+    field Node head, tail;
+    field int size;
+
+    //default constructor
+    constructor List new(){
+
+        let head = null;
+        let tail = null;
+        let size = 0;
+
+        return this;
+    }
+
+    //inserts elem on front
+    method void insertFront(int data){
+        
+        var Node toInsert;
+        
+        let toInsert = Node.new(data);
+
+        if (head = null){
+            let head = toInsert;
+            let tail = toInsert;
+
+        }else{
+            do head.setupPrev(toInsert);
+            do toInsert.setupNext(head);
+            do toInsert.setupPrev(null);
+            let head = toInsert;
+            
+        }
+        let size = size + 1;
+        return;
+    }
+
+    //inserts elem on back
+    method void insertBack(int data){
+        var Node toInsert;
+        
+        let toInsert = Node.new(data);
+
+        if (tail = null){
+            let head = toInsert;
+            let tail = toInsert;
+
+        }else{
+            do tail.setupNext(toInsert);
+            do toInsert.setupNext(null);
+            do toInsert.setupPrev(tail);
+            let tail = toInsert;
+
+        }
+
+        let size = size + 1;
+        return;
+    }
+
+    //gets head
+    method Node getHead(){
+        return head;
+    }
+
+    //gets tail
+    method Node getTail(){
+        return tail;
+    }
+
+    //destroys elements
+    method void destroy(){
+        var Node del, pom;
+        let del = head;
+
+        while(~(del = null)){
+            let pom = del.getNext();
+            do del.destroy();
+            let del = pom;
+        }
+
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    //gets size
+    method int getsize(){
+        return size;
+    }
+
+    //clears all storage and resets main nodes
+    method void clear(){
+        var Node del, pom;
+        let del = head;
+
+        while(~(del = null)){
+            let pom = del.getNext();
+            do del.destroy();
+            let del = pom;
+        }
+
+        let head = null;
+        let tail = null;
+        return;
+    }
+
+    //my custom print
+    method void print(){
+        var Node datanode;
+        do Output.printString("Elements of list: ");
+        let datanode = head;
+        if(datanode = null){
+            do Output.printString("Empty");
+            do Output.println();
+        }else{
+            while(~(datanode = null)){
+            do Output.printInt(datanode.getdata());
+            do Output.printString(" ");
+            let datanode = datanode.getNext();
+            }
+            
+            do Output.println();
+            do Output.printString("Head at: ");
+            do Output.printInt(head.getdata());
+            do Output.printString(", tail at: ");
+            do Output.printInt(tail.getdata());
+            do Output.printString(", size: ");
+            do Output.printInt(size);
+            do Output.println();
+            do Output.printString("------------------------------");
+            do Output.println();
+        }
+        
+        return;
+    }
+
+
+}

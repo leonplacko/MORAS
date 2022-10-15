@@ -1,0 +1,106 @@
+class Set{
+
+    field Vector storage;
+    field int size;    
+
+    // constructor where set uses vector as storage
+    constructor Set new(){
+        let storage = Vector.new();
+        let size = 0;
+        return this;
+    }
+
+    // insert for set
+    method void insert(int data){
+
+        if (~(exists(data))){
+            do storage.push_back(data);
+            let size = size + 1;
+        }else{
+            do Output.printString("Unsuccessful insert");
+            do Output.println();
+        }
+
+        return;
+    }
+
+    // delete method for set
+    method void delete(int data){
+        var int pos, nextpos, nextdata;
+        let pos = find(data);
+        if(pos = -1){
+            do Output.printString("Element not found");
+        }else{
+            if(size = 1){
+                do storage.reduce();
+            }else{
+                let nextpos = pos + 1;
+                while(~(nextpos = size)){
+                    let nextdata = storage.get(nextpos);
+                    do storage.set(pos, nextdata);
+                    let pos = pos + 1;
+                    let nextpos = pos + 1;
+                }
+                do storage.reduce();
+            }
+            
+        }
+        return;
+    }
+
+    // method which checks if data is in set
+    method bool exists(int data){
+        var int result;
+        let result = find(data);
+
+        if(result = -1){
+            return false;
+        }else{
+            return true;
+        }
+
+    }
+
+    // clears storage and redeclares it
+    method void clear(){
+        var Vector newstorage;
+        do storage.destroy();
+        let newstorage = Vector.new();
+        let storage = newstorage;
+        let size = 0;
+        return;
+    }
+
+    //destroy the object
+    method void destroy(){
+        do storage.destroy();
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    //gets the size
+    method int getsize(){
+        return size;
+    }
+
+    //my custom print
+    method void print(){
+        do storage.print();
+        return;
+    }
+
+    // main method for finding data
+    method int find(int data){
+        var int i, max, temp;
+        let max = storage.size();
+
+        while(i < max){
+            let temp = storage.get(i);
+            if(data = temp){
+                return i;
+            }
+            let i = i + 1;
+        }
+        return -1;
+    }
+}

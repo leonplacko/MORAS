@@ -1,0 +1,226 @@
+class PQueue{
+    
+    field Array A;
+    field int size, maxsize, level;
+    field bool max;
+
+    // constructor with opion if its min or max pq
+    constructor PQueue new(bool m){
+        
+        let A = Array.new(1);
+        let size = 0;
+        let level = 1;
+        let max = m;
+        let maxsize = 1;
+
+        return this;
+
+    }
+
+    // reverse heapify
+    method void evil_heapify(){
+        var int pos, parentpos, temp, test;
+        let temp = size;
+        
+        while(~(temp = 1)){
+
+            let parentpos = PQueue.parent(temp);
+            let pos = temp - 1;
+
+            if(max){
+                if(A[pos] > A[parentpos]){
+                    do swap(pos, parentpos);
+                }
+            }else{
+                if(A[pos] < A[parentpos]){
+                    do swap(pos, parentpos);
+                }
+            }
+
+            let temp = PQueue.parent(temp) + 1;
+            
+        }       
+
+        return;
+    }
+
+    // gets right pos
+    function int right(int i){
+        var int j;
+        let j = Math.multiply(2, i) + 2;
+        return j;
+    }
+
+    //gets left pos
+    function int left(int i){
+        var int j;
+        let j = Math.multiply(2, i) + 1;
+        return j;
+    }
+
+    //gets parent pos
+    function int parent(int i){
+        var int j;
+        let j = Math.divide(i, 2) - 1;
+        return j;
+    }
+
+    //insert
+    method void enqueue(int n){
+        var int pos;
+        let pos = size;
+        let size = size + 1;
+        
+        if(size = maxsize){
+            let size = size - 1;
+            do createLevel();
+            let size = size + 1;
+        }
+
+        let A[pos] = n;
+        do evil_heapify();
+        return;
+    }
+
+    // delete
+    method void dequeue(){
+        var int i, left, right;
+
+        if(size = 0){
+            do Output.printString("already empty");
+            do Output.println();
+        }else{
+
+            do Output.printInt(A[0]);
+            do Output.println();
+            let size = size - 1;
+            do swap(0, size);
+
+            while(i < size){
+                let left = PQueue.left(i);
+                let right = PQueue.right(i);
+
+                if(left < size){
+
+                    if(right < size){
+
+                        if(max){
+
+                            if(A[right] > A[left]){
+                                do swap(i, right);
+                                let i = right;
+                            }else{
+                                do swap(i, left);
+                                let i = left;
+                            }
+
+                        }else{
+
+                            if(A[right] < A[left]){
+                                do swap(i, right);
+                                let i = right;
+                            }else{
+                                do swap(i, left);
+                                let i = left;
+                            }
+                        }
+
+                    }else{
+
+                        let i = size;
+
+                    }
+
+                }else{
+
+                    let i = size;
+
+                }
+            }
+        }
+  
+        return;
+    }
+
+    //when capacity is breached, this method creates new storage equivalent of level or a tree (ex: level 2 is 3 elems, 3 is 7, 4 is 15)
+    method void createLevel(){
+        var int i, var1;
+        var Array newarr;
+        let var1 = 2;
+
+        while(i < level){
+            let var1 = Math.multiply(2, var1);
+            let i = i + 1; 
+        }
+
+        
+
+        let maxsize = var1 - 1;
+        let i = 0;
+        let newarr = Array.new(maxsize);
+        let level = level + 1;
+
+        while(i < size){
+            let newarr[i] = A[i];
+            let i = i + 1;
+        }
+
+        do A.dispose();
+        let A = newarr;
+        
+        return;
+
+    }
+
+    // destroys the object
+    method void destroy(){
+        do A.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    // clears the storage and resets it
+    method void clear(){
+        var Array B;
+        let B = Array.new(1);
+        let maxsize = 1;
+        let size = 0;
+        let level = 0;
+        do A.dispose();
+        let A = B;
+
+        return;
+    }
+
+    //swaps 2 elems in storage
+    method void swap(int posa, int posb){
+        var int temp;
+        let temp = A[posa];
+        let A[posa] = A[posb];
+        let A[posb] = temp;
+        return;
+    }
+
+    //gets size
+    method int size(){
+        return size;
+    }
+
+    //my custom print
+    method void print(){
+        var int i;
+        do Output.printString("PQueue elements: ");
+        while(i < size){
+            do Output.printInt(A[i]);
+            do Output.printString(" ");
+            let i = i + 1;
+        }
+        do Output.println();
+        do Output.printString("with size: ");
+        do Output.printInt(size);
+        do Output.println();
+        return;
+    }
+
+    
+}

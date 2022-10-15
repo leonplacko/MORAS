@@ -1,0 +1,247 @@
+class Vec{
+
+    field Array data;
+    field int dimension;
+
+    //default constructor
+    constructor Vec new(Array a, int n){
+        do Math.init();
+        let data = a;
+        let dimension = n;
+        return this;
+    }
+
+    //cross vec multiply, if vec size is beyond 3 it ignores the rest, if its below then its null
+    function Vec vecProduct(Vec first, Vec second){
+        var Vec C;
+        var Array data1, data2, data3;
+        var int dim1, dim2, dim3; 
+
+        let data1 = first.getdata();
+        let data2 = second.getdata();
+        let dim1 = first.getdim();
+        let dim2 = second.getdim();
+
+        if(dim1 < 3){
+            do Output.printString("Impossible");
+            do Output.println();
+            return null;
+        }
+        if(dim2 < 3){
+            do Output.printString("Impossible");
+            do Output.println();
+            return null;
+        }
+
+        let dim3 = 3;
+        let data3 = Array.new(dim3);
+        
+        let data3[0] = Math.multiply(data1[1], data2[2]) - Math.multiply(data1[2], data2[1]);
+        let data3[1] = Math.multiply(data1[2], data2[0]) - Math.multiply(data1[0], data2[2]);
+        let data3[2] = Math.multiply(data1[0], data2[1]) - Math.multiply(data1[1], data2[0]);
+
+        
+        let C = Vec.new(data3, dim3);
+        return C;
+
+    }
+
+    //calculates scalar product of 2 vecs
+    function int scalarProduct(Vec first, Vec second){
+        var int data1, data2, dim1, dim2, result, i;
+
+        let data1 = first.getdata();
+        let data2 = second.getdata();
+        let dim1 = first.getdim();
+        let dim2 = second.getdim();
+
+        if(dim1 = dim2){
+
+            while(i < dim1){
+                let result = result + Math.multiply(data1[i], data2[i]);
+                let i = i + 1;
+            }
+
+            return result;
+
+        }else{
+            do Output.printString("Vektori nisu iste dimenzije");
+            do Output.println();
+            return 0;
+        }
+
+
+    }
+
+    //adds 2 vecs
+    function Vec add(Vec first, Vec second){
+        var Vec C;
+        var Array data1, data2, data3;
+        var int i, dim1, dim2, dim3;
+
+        let data1 = first.getdata();
+        let data2 = second.getdata();
+        let dim1 = first.getdim();
+        let dim2 = second.getdim();
+
+        if(dim1 > dim2){
+            let dim3 = dim1;
+            let data3 = Array.new(dim3);
+            
+            while(i < dim2){
+                let data3[i] = data1[i] + data2[i];
+                let i = i + 1;
+            }
+            
+            while(i < dim1){
+                let data3[i] = data1[i];
+                let i = i + 1;
+            }
+
+            let C = Vec.new(data3, dim3);
+            return C;
+                                  
+        }
+        if(dim2 > dim1){
+            let dim3 = dim2;
+            let data3 = Array.new(dim3);
+            
+            while(i < dim1){
+                let data3[i] = data1[i] + data2[i];
+                let i = i + 1;
+            }
+            
+            while(i < dim2){
+                let data3[i] = data2[i];
+                let i = i + 1;
+            }
+
+            let C = Vec.new(data3, dim3);
+            return C;
+            
+        }
+        if(dim1 = dim2){
+            let dim3 = dim2;
+            let data3 = Array.new(dim3);
+            
+            while(i < dim1){
+                let data3[i] = data1[i] + data2[i];
+                let i = i + 1;
+            }
+
+            let C = Vec.new(data3, dim3);
+            return C;
+        }
+
+        return null;
+    }
+
+    //substracts 2 vecs
+    function Vec sub(Vec first, Vec second){
+        var Vec C;
+        var Array data1, data2, data3;
+        var int i, dim1, dim2, dim3;
+
+        let data1 = first.getdata();
+        let data2 = second.getdata();
+        let dim1 = first.getdim();
+        let dim2 = second.getdim();
+
+        if(dim1 > dim2){
+            let dim3 = dim1;
+            let data3 = Array.new(dim3);
+            
+            while(i < dim2){
+                let data3[i] = data1[i] - data2[i];
+                let i = i + 1;
+            }
+            
+            while(i < dim1){
+                let data3[i] = data1[i];
+                let i = i + 1;
+            }
+
+            let C = Vec.new(data3, dim3);
+            return C;
+                                  
+        }
+        if(dim2 > dim1){
+            let dim3 = dim2;
+            let data3 = Array.new(dim3);
+            
+            while(i < dim1){
+                let data3[i] = data1[i] - data2[i];
+                let i = i + 1;
+            }
+            
+            while(i < dim2){
+                let data3[i] = 0 - data2[i];
+                let i = i + 1;
+            }
+
+            let C = Vec.new(data3, dim3);
+            return C;
+            
+        }
+        if(dim1 = dim2){
+            let dim3 = dim2;
+            let data3 = Array.new(dim3);
+            
+            while(i < dim1){
+                let data3[i] = data1[i] - data2[i];
+                let i = i + 1;
+            }
+
+            let C = Vec.new(data3, dim3);
+            return C;
+        }
+
+        return null;
+    }
+
+    //calculates l2 norm of vec
+    method int norm(){
+        var int x, suma, final, i;
+        while(i < dimension){
+            let x = data[i];
+            let suma = suma + Math.multiply(x, x);
+            let i = i + 1;
+        }
+
+        
+        let final = Math.sqrt(suma);
+        return final;
+    }
+
+    //acquires data
+    method Array getdata(){
+        return data;
+    }
+
+    //acquires dimension
+    method int getdim(){
+        return dimension;
+    }
+
+    //destroys object
+    method void destroy(){
+        do data.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    //my custom print
+    method void print(){
+        var int i;
+        do Output.printString("Elements of vec: ");
+        while(i < dimension){
+            do Output.printInt(data[i]);
+            do Output.printString(" ");
+            let i = i + 1;
+        }
+
+        do Output.println();
+
+        return;
+    }
+}

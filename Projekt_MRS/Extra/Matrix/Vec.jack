@@ -1,0 +1,205 @@
+class Vec{
+
+    field Array data;
+    field int dimension;
+
+    constructor Vec new(Array a, int n){
+        do Math.init();
+        let data = a;
+        let dimension = n;
+        return this;
+    }
+
+
+    function Vec vecProduct(Vec first, Vec second){
+        var Vec C;
+        var Array data1, data2, data3;
+        var int dim1, dim2, dim3; 
+        //mozda neki upgrade vector, napravljeno sa pretpostavkom da su vektori 3 dimenzije
+
+        let data1 = first.getdata();
+        let data2 = second.getdata();
+        let dim1 = first.getdim();
+        let dim2 = second.getdata();
+
+        //provjera jesu li dimenzije jednake 3
+
+        let dim3 = dim2;
+        let data3 = Array.new(dim3);
+        
+        let data3[0] = Math.multiply(data1[1], data2[2]) - Math.multiply(data1[2], data2[1]);
+        let data3[1] = Math.multiply(data1[0], data2[2]) - Math.multiply(data1[2], data2[0]);
+        let data3[2] = Math.multiply(data1[0], data2[1]) - Math.multiply(data1[1], data2[0]);
+
+        if(data3[1] < 0){
+            let data3[1] = Math.abs(data3[2]);
+        }else{
+            let data3[1] = 0 - data3[1];
+        }
+
+        let C = Vec.new(data3, dim3);
+        return C;
+
+    }
+
+    function int scalarProduct(Vec first, Vec second){
+        var int data1, data2, dim1, dim2, result, i;
+
+        let data1 = first.getdata();
+        let data2 = second.getdata();
+        let dim1 = first.getdim();
+        let dim2 = second.getdim();
+
+        if(dim1 = dim2){
+
+            while(i < dim1){
+                let result = result + Math.multiply(data1[i], data2[i]);
+                let i = i + 1;
+            }
+
+            return result;
+
+        }else{
+            do Output.printString("Vektori nisu iste dimenzije");
+            do Output.println();
+            return 0;
+        }
+
+
+    }
+
+    function Vec add(Vec first, Vec second){
+        var Vec C;
+        var Array data1, data2, data3;
+        var int i, dim1, dim2, dim3;
+
+        let data1 = first.getdata();
+        let data2 = second.getdata();
+        let dim1 = first.getdim();
+        let dim2 = second.getdim();
+
+        if(dim1 > dim2){
+            let dim3 = dim1;
+            let data3 = Array.new(dim3);
+            
+            while(i < dim2){
+                let data3[i] = data1[i] + data2[i];
+                let i = i + 1;
+            }
+            
+            while(i < dim1){
+                let data3[i] = data1[i];
+                let i = i + 1;
+            }
+
+            let C = Vec.new(data3, dim3);
+            return C;
+                                  
+        }else{
+            let dim3 = dim2;
+            let data3 = Array.new(dim3);
+            
+            while(i < dim1){
+                let data3[i] = data1[i] + data2[i];
+                let i = i + 1;
+            }
+            
+            while(i < dim2){
+                let data3[i] = data2[i];
+                let i = i + 1;
+            }
+
+            let C = Vec.new(data3, dim3);
+            return C;
+            
+        }
+
+    }
+
+    function Vec sub(Vec first, Vec second){
+        var Vec C;
+        var Array data1, data2, data3;
+        var int i, dim1, dim2, dim3;
+
+        let data1 = first.getdata();
+        let data2 = second.getdata();
+        let dim1 = first.getdim();
+        let dim2 = second.getdim();
+
+        if(dim1 > dim2){
+            let dim3 = dim1;
+            let data3 = Array.new(dim3);
+            
+            while(i < dim2){
+                let data3[i] = data1[i] - data2[i];
+                let i = i + 1;
+            }
+            
+            while(i < dim1){
+                let data3[i] = data1[i];
+                let i = i + 1;
+            }
+
+            let C = Vec.new(data3, dim3);
+            return C;
+                                  
+        }else{
+            let dim3 = dim2;
+            let data3 = Array.new(dim3);
+            
+            while(i < dim1){
+                let data3[i] = data1[i] - data2[i];
+                let i = i + 1;
+            }
+            
+            while(i < dim2){
+                let data3[i] = 0 - data2[i];
+                let i = i + 1;
+            }
+
+            let C = Vec.new(data3, dim3);
+            return C;
+            
+        }
+    }
+
+    method int norm(){
+        var int x, suma, final, i;
+        while(i < dimension){
+            let x = data[i];
+            let suma = suma + Math.multiply(x, x);
+            let i = i + 1;
+        }
+
+        let final = Math.sqrt(suma);
+        return final;
+    }
+
+    method Array getdata(){
+        return data;
+    }
+
+    method int getdim(){
+        return dimension;
+    }
+
+    method void destroy(){
+        do data.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method void print(){
+        var int i;
+        do Output.printString("Elements of vec: ");
+        while(i < dimension){
+            do Output.printInt(data[i]);
+            do Output.printString(" ");
+            let i = i + 1;
+        }
+
+        do Output.println();
+
+        return;
+    }
+}

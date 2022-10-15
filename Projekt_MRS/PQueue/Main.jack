@@ -1,0 +1,35 @@
+class Main{
+
+    function void main(){
+
+        var PQueue pq1;
+
+        let pq1 = PQueue.new(true);
+
+        do pq1.enqueue(2);
+        do pq1.enqueue(5);
+        do pq1.enqueue(3);
+        do pq1.enqueue(70);
+        do pq1.enqueue(20);
+        do pq1.enqueue(8);
+        do pq1.enqueue(4);
+        do pq1.enqueue(22);
+
+        
+        do pq1.print();
+        do pq1.dequeue();
+        do pq1.print();
+        do pq1.dequeue();
+        do pq1.print();
+        do pq1.dequeue();
+        do pq1.print();
+        do pq1.dequeue();
+        do pq1.destroy();
+        
+        return;
+
+             
+    }
+
+
+}

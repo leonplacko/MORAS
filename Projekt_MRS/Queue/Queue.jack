@@ -1,0 +1,172 @@
+class Queue{
+    
+    field Array A;
+    field int size, first, last, maxsize;
+    field bool upgradable;
+
+    // constructor with option to auto upgrade storage if capacity breached
+    constructor Queue new(int n, bool upgrd){
+        do Math.init();
+        let A = Array.new(n);
+        let size = 0;
+        let first = 0;
+        let last = 0;
+        let maxsize = n;
+        let upgradable = upgrd;
+        return this;
+    }
+
+    // insert
+    method void enqueue(int b){
+        if (last = maxsize){
+            if (first = 0){
+                if (upgradable = false){
+
+                    do Output.printString("out of memory");
+                    do Output.println();
+                }else{
+
+                    do Upgrade();
+                    let A[last] = b;
+                    let size = size + 1;
+                    let last = last + 1;
+                }
+            }else{
+
+                do stabilizeMemory();
+                let A[last] = b;
+                let size = size + 1;
+                let last = last + 1;
+            }
+            
+        }else{
+
+            let A[last] = b;
+            let size = size + 1;
+            let last = last + 1;
+        }
+        
+        return;
+    }
+
+    // standard delete
+    method int dequeue(){
+        var int res;
+        let res = -1;
+
+        if (first = last){
+            do Output.printString("Empty");
+            do Output.println();
+        }else{
+            let res = A[first];
+            let first = first + 1;
+        }
+        let size = size - 1;
+        return res;        
+    }
+
+    //destroys the object
+    method void destroy(){
+        do A.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    //clears the storage and resets it
+    method void clear(){
+        var Array B;
+        do A.dispose();
+        let B = Array.new(maxsize);
+        let A = B;
+        let size = 0;
+        let first = 0;
+        let last = 0;
+        return;
+        
+    }
+
+    //gets size
+    method int getsize(){
+        return size;
+    }
+
+    //upgrades the storage
+    method void Upgrade(){
+        var int i, newmax;
+        var Array B;
+
+        let newmax = Math.multiply(2, maxsize);
+        let B = Array.new(newmax);
+
+        while(i < maxsize){
+            let B[i] = A[i];
+            let i = i + 1;
+        }
+        do A.dispose();
+        let A = B;
+        let maxsize = newmax;
+
+        return;
+    }
+
+    //gets the element that has been entered last
+    method int peek(){
+        var int pos;
+        let pos = last - 1;
+        return A[pos];
+    }
+
+    //method which resets the pointers and copys data to the beginning of storage
+    method void stabilizeMemory(){
+        var int i, f;
+
+        if (first = last){
+
+            let first = 0;
+            let last = 0;
+        }else{
+            let f = last - first;
+            let f = f + 1;
+            while (i < f){
+                let A[i] = A[first];
+                let i = i + 1;
+                let first = first + 1;
+            }
+
+            let first = 0;
+            let last = f - 1;
+
+        }
+
+        return;       
+
+    }
+
+    // my custom print
+    method void print(){
+        var int i;
+        let i = first;
+                
+        do Output.printString("-----------------------------------");
+        do Output.println();
+        do Output.printString("queue elements: ");
+        
+        while(i < last){
+            do Output.printInt(A[i]);
+            do Output.printString(" ");
+            let i = i + 1;
+        }
+
+        do Output.println();
+        do Output.printString("with size: ");
+        do Output.printInt(size);
+        do Output.printString(", and queue capacity: ");
+        do Output.printInt(maxsize);
+        do Output.println();
+        do Output.printString("-----------------------------------");
+        do Output.println();
+
+        return;
+    }
+
+}

@@ -1,0 +1,48 @@
+class Main{
+
+    function void main(){
+
+        var Stack s1, s2;
+
+        let s1 = Stack.new(5, false);
+        let s2 = Stack.new(3, true);
+        do s1.push(5);
+        do s1.push(1);
+        do s1.push(4);
+        do s1.push(2);
+        do s1.push(3);
+        do s1.push(6);
+        do s1.print();
+
+        do s1.pop();
+        do s1.pop();
+        do s1.print();
+        do Output.printInt(s1.peek());
+        do Output.println(); 
+        do s1.clear();
+        do s1.print();       
+        do s1.destroy();
+
+        
+        do s2.push(10);
+        do s2.push(9);
+        do s2.push(8);
+        do s2.push(7);
+        do s2.push(6);
+        do s2.push(5);
+
+        do s2.pop();
+        do s2.pop();
+        do s2.print(); 
+        do s2.clear();
+        do s2.print();
+        do s2.destroy();
+
+        return;
+
+
+        
+    }
+
+
+}

@@ -1,0 +1,32 @@
+class Main{
+
+    function void main(){
+
+        var BST t1;
+
+        let t1 = BST.new();
+        do t1.insert(4);
+        do t1.insert(5); 
+        do t1.insert(3);
+        do t1.insert(2);
+        do t1.insert(1);
+        do t1.insert(12);
+        do t1.print();
+
+        do t1.delete(4);
+        do t1.print();
+        do t1.delete(3);
+        do t1.print();
+        do t1.delete(12);
+        do t1.print();
+
+        do t1.clear();
+        do t1.print();
+        do t1.destroy();
+
+        return;
+        
+    }
+
+
+}

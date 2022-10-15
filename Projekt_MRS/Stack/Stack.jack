@@ -1,0 +1,142 @@
+class Stack{
+    
+    field Array A;
+    field int maxsize, size;
+    field bool upgradable;
+    
+    // constructor with option to upgrade which means to auto resize storage if capacity breached
+    constructor Stack new(int vel, bool up){
+        do Math.init();
+        let A = Array.new(vel);
+        let size = 0;
+        let maxsize = vel;
+        let upgradable = up;
+
+        return this;
+
+    }
+    
+    // gets size
+    method int size(){
+        return size;
+    }
+
+    // insert
+    method void push(int n){
+
+        var int pos;
+        let size = size + 1;
+
+        if (size > maxsize){
+            if (upgradable = true){
+
+                do Upgrade();
+                let pos = size - 1;
+                let A[pos] = n;
+            }else{
+
+                do Output.printString("Full");
+                do Output.println();
+                let size = size - 1;
+            }
+            
+        }else{
+            
+            let pos = size - 1;
+            let A[pos] = n;
+        }
+
+        return;
+        
+    }
+
+    // aquires and deletes the element on top
+    method int pop(){
+        
+        var int a, pos;
+        let a = -1;
+
+        if (size = 0){
+            do Output.printString("empty");
+            do Output.println();
+        }else{
+            let pos = size - 1;
+            let a = A[pos];
+            let size = pos;
+        }
+
+        return a;
+
+    }
+
+    // upgrade feature or storage
+    method void Upgrade(){
+        var int i, newmax;
+        var Array B;
+
+        let newmax = Math.multiply(2, maxsize);
+        let B = Array.new(newmax);
+
+        while(i < maxsize){
+            let B[i] = A[i];
+            let i = i + 1;
+        }
+        do A.dispose();
+        let A = B;
+        let maxsize = newmax;
+
+        return;
+    }
+
+    // my custom print
+    method void print(){
+        var int i;
+                
+        do Output.printString("-----------------------------------");
+        do Output.println();
+        do Output.printString("Stack elements: ");
+        
+        while(i < size){
+            do Output.printInt(A[i]);
+            do Output.printString(" ");
+            let i = i + 1;
+        }
+
+        do Output.println();
+        do Output.printString("with size: ");
+        do Output.printInt(size);
+        do Output.printString(", and stack capacity: ");
+        do Output.printInt(maxsize);
+        do Output.println();
+        do Output.printString("-----------------------------------");
+        do Output.println();
+
+        return;
+    }
+
+    // gets the element on top of stack
+    method int peek(){
+        var int pos;
+        let pos = size - 1;
+        return A[pos];  
+    }
+
+    //clears storage and redeclares it
+    method void clear(){
+        var Array B;
+        do A.dispose();
+        let B = Array.new(maxsize);
+        let A = B;
+        let size = 0;
+        return;
+    }
+
+    //destroys the object
+    method void destroy(){
+        do A.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
+
+}

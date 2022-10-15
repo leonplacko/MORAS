@@ -1,0 +1,96 @@
+class HashTable{
+
+    field int bucket;
+    field Array table;
+
+    //default contructor
+    constructor HashTable new(int n){
+        var int i;
+        var List l1;
+        let bucket = n;
+        let table = Array.new(n);
+        while(i < n){
+            let l1 = List.new();
+            let table[i] = l1;
+            let i = i + 1;
+        }
+        return this;
+    }
+
+    //gets the row of storage
+    method void get(int pos){
+        var List res;
+        if(~(pos < bucket)){
+
+            do Output.printString("Invalid range");
+            do Output.println();
+
+        }else{
+
+            let res = table[pos];
+            do res.print(pos);
+        }
+        
+        return;
+    }
+
+    //acts liek a insert hash
+    method void set(int el){
+        var int pos;
+        var List dest;
+
+        let pos = Hash(el);
+        let dest = table[pos];
+        do dest.insertBack(el);
+        return;
+    }
+
+    //hash function
+    method int Hash(int n){
+        return HashTable.modular(n, bucket);
+    }
+
+    //mod function
+    function int modular(int a, int b){
+        // a mod b = c
+        var int c, pom;
+        if (a < b){
+            let c = a;
+        }else{
+
+            let pom = Math.divide(a, b);
+            let c = a - Math.multiply(pom, b);
+        }
+
+        return c;
+    }
+
+    //my custom print
+    method void print(){
+        var int i;
+        var List l1;
+        do Output.printString("----- contents of hashmap -----");
+        do Output.println();
+        while(i < bucket){
+            let l1 = table[i];
+            do l1.print(i);
+            let i = i + 1;
+        }
+        return;
+    }
+
+    //destroys object
+    method void destroy(){
+        var int i;
+        var List l1;
+        while(i < bucket){
+            let l1 = table[i];
+            do l1.destroy();
+            let i = i + 1;
+        }
+        do table.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
+}

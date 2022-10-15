@@ -1,0 +1,80 @@
+function Main.main 3
+call Vector.new 0
+pop local 0
+call Vector.new 0
+pop local 1
+push local 0
+push constant 1
+call Vector.push_back 2
+pop temp 0
+push local 0
+push constant 2
+call Vector.push_back 2
+pop temp 0
+push local 0
+push constant 3
+call Vector.push_back 2
+pop temp 0
+push local 0
+push constant 4
+call Vector.push_back 2
+pop temp 0
+push local 0
+push constant 5
+call Vector.push_back 2
+pop temp 0
+push local 0
+push constant 6
+call Vector.push_back 2
+pop temp 0
+push local 0
+call Vector.print 1
+pop temp 0
+push local 0
+push constant 3
+push constant 50
+call Vector.set 3
+pop temp 0
+push local 0
+push constant 3
+call Vector.get 2
+call Output.printInt 1
+pop temp 0
+call Output.println 0
+pop temp 0
+push local 0
+call Vector.print 1
+pop temp 0
+label WHILE_EXP0
+push local 2
+push constant 21
+lt
+not
+if-goto WHILE_END0
+push local 1
+push local 2
+call Vector.push_back 2
+pop temp 0
+push local 2
+push constant 1
+add
+pop local 2
+goto WHILE_EXP0
+label WHILE_END0
+push local 1
+call Vector.print 1
+pop temp 0
+push local 1
+call Vector.clear 1
+pop temp 0
+push local 1
+call Vector.print 1
+pop temp 0
+push local 0
+call Vector.destroy 1
+pop temp 0
+push local 1
+call Vector.destroy 1
+pop temp 0
+push constant 0
+return

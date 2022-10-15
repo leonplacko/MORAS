@@ -1,0 +1,257 @@
+class BST{
+    
+    field Node root;
+    field int size;
+
+    //constructor
+    constructor BST new(){
+        let size = 0;
+        return this;
+    }
+
+    // inserts element
+    method void insert(int n){
+        var Node n1, n2, prev;
+        var bool pos;
+        let n1 = Node.new(n);
+
+        if(root = null){
+            
+            let root = n1;
+        }else{
+            
+            let n2 = root;
+            while(~(n2 = null)){
+                if (n2.getdata() < n){
+                    let prev = n2;
+                    let n2 = n2.getRight();
+                    let pos = true;
+                }else{
+                    let prev = n2;
+                    let n2 = n2.getLeft();
+                    let pos = false;
+                }
+            }
+
+            do n1.setupParent(prev);
+            if(pos){
+                do prev.setupRight(n1);
+            }else{
+                do prev.setupLeft(n1);
+            }
+
+        }
+
+        let size = size + 1;
+        return;
+    }
+
+    // deletes element
+    method void delete(int n){
+        var Node n1, n2, n3, sljedb, parent;
+        
+        let n1 = search(n);
+        
+        if(~(n1 = null)){
+                        
+            let sljedb = n1.getRight();
+            let n2 = n1.getLeft();
+
+            if(~(n1 = root)){
+
+                let parent = n1.getParent();
+                let n3 = parent.getRight();
+
+                if(sljedb = null){
+
+                    if(n3 = null){
+                        
+                        do parent.setupLeft(n2);
+
+                    }else{
+
+                        if(n3 = n1){
+
+                            do parent.setupRight(n2);
+
+                        }else{
+
+                            do parent.setupLeft(n2);
+
+                        }
+                    }
+
+                    if(~(n2 = null)){
+
+                        do n2.setupParent(parent);
+
+                    }
+
+                }else{
+
+                    if(n3 = null){
+
+                        do parent.setupLeft(sljedb);
+
+                    }else{
+
+                        if(n1 = n3){
+
+                            do parent.setupRight(sljedb);
+
+                        }else{
+
+                            do parent.setupLeft(sljedb);
+
+                        }
+                    }
+
+                    do sljedb.setupParent(parent);
+
+                    while(~(sljedb.getLeft() = null)){
+                        let sljedb = sljedb.getLeft();
+                    }
+                    
+                    if(~(n2 = null)){
+                        do sljedb.setupLeft(n2);
+                        do n2.setupParent(sljedb);
+                    }
+                }
+
+            }else{
+
+                if(sljedb = null){
+
+                    if(~(n2 = null)){
+
+                        let root = n2;
+
+                    }
+
+                }else{
+
+                    if(~(n2 = null)){
+
+                        while(~(sljedb.getLeft() = null)){
+                            let sljedb = sljedb.getLeft();
+                        }
+
+                        do sljedb.setupLeft(n2);
+                        do n2.setupParent(sljedb);
+                        let root = sljedb;
+
+                    }else{
+
+                        let root = sljedb;
+
+                    }
+
+                }
+
+            }
+
+            let size = size - 1;
+
+        }else{
+            
+            do Output.printString("data not found");
+            do Output.println();
+
+        }
+
+        return;
+    }
+
+    //searches for an element and gets it
+    method Node search(int n){
+        var Node srn;
+        let srn = BST.search2(root, n);
+        return srn;
+    }
+
+    //main function for search
+    function Node search2(Node rt, int n){
+
+        if(rt = null){
+            return null;
+        }        
+        if(rt.getdata() = n){
+            return rt;
+        }
+        if(rt.getdata() < n){
+            let rt = rt.getRight();
+            return BST.search2(rt, n);
+        }
+        if(rt.getdata() > n){
+            let rt = rt.getLeft();
+            return BST.search2(rt, n);
+        }
+
+        return null;
+    }
+
+    // my custom print
+    method void print(){
+        do Output.printString("Element: ");
+        do print2(root);
+        do Output.println();
+        do Output.printString("with size: ");
+        do Output.printInt(size);
+        do Output.printString(", with root: ");
+
+        if(~(root = null)){
+            do Output.printInt(root.getdata());
+        }
+        
+        do Output.println();
+        return;
+    }
+
+    // recursive print
+    method void print2(Node rt){
+
+        if(~(rt = null)){
+            do print2(rt.getLeft());
+            do Output.printInt(rt.getdata());
+            do Output.printString(" ");
+            do print2(rt.getRight());
+        }
+        return;
+    }
+
+    // destroys object
+    method void destroy(){
+        do destroyNodes(root);
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    //gets size
+    method int size(){
+        return size;
+    }
+
+    //destroys all the nodes
+    method void destroyNodes(Node rt){
+        var Node left, right;
+      
+
+        if(~(rt = null)){
+            let left = rt.getLeft();
+            let right = rt.getRight();
+            do destroyNodes(left);            
+            do rt.destroy();
+            do destroyNodes(right);
+        }
+
+        return;
+    }
+
+    //clears all elems and resets root
+    method void clear(){
+        do destroyNodes(root);
+        let root = null;
+        let size = 0;
+        return;
+    }
+}

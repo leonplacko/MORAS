@@ -1,0 +1,64 @@
+class Main{
+
+    function void main(){
+        
+        var Mat m1, m2, m3, m4;
+        var Vec v1, v2;
+        var Array vector;
+
+        let vector = Array.new(3);
+        let vector[0] = 2;
+        let vector[1] = 5;
+        let vector[2] = 3;
+
+        let m1 = Mat.new(3, 3);
+        let m2 = Mat.new(3, 2);
+        let v1 = Vec.new(vector, 3);
+
+        do m1.set(0, 0, 1);
+        do m1.set(0, 1, 2);
+        do m1.set(0, 2, 3);
+        do m1.set(1, 0, 4);
+        do m1.set(1, 1, 5);
+        do m1.set(1, 2, 4);
+        do m1.set(2, 0, 3);
+        do m1.set(2, 1, 2);
+        do m1.set(2, 2, 1);
+
+        do m2.set(0, 0, 3);
+        do m2.set(0, 1, 2);
+        do m2.set(1, 0, 1);
+        do m2.set(1, 1, 1);
+        do m2.set(2, 0, 2);
+        do m2.set(2, 1, 3);
+
+        do m1.print();
+
+        do Output.printInt(m1.trace());
+        do Output.println();
+        do Output.printInt(m1.det());
+        do Output.println();
+
+        let m3 = Mat.prodMat(m1, m2);
+        do m3.print();
+
+        let m4 = m1.tr();
+        do m4.print();
+
+        let v2 = Mat.prodVec(m1, v1);
+        do v2.print();
+
+        do m1.destroy();
+        do m2.destroy();
+        do m3.destroy();
+        do m4.destroy();
+        do v1.destroy();
+        do v2.destroy();
+        
+
+        return;
+        
+    }
+
+
+}

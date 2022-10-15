@@ -1,0 +1,39 @@
+class Main{
+
+    function void main(){
+
+        var Vector v1, v2;
+        var int i;
+
+        let v1 = Vector.new();
+        let v2 = Vector.new();
+
+        do v1.push_back(1);
+        do v1.push_back(2);
+        do v1.push_back(3);
+        do v1.push_back(4);
+        do v1.push_back(5);
+        do v1.push_back(6);
+
+        do v1.print();
+        do v1.set(3, 50);
+        do Output.printInt(v1.get(3));
+        do Output.println();
+        do v1.print();
+
+        while(i < 21){
+            do v2.push_back(i);
+            let i = i + 1;
+        }
+
+        do v2.print();
+        do v2.clear();
+        do v2.print();
+        do v1.destroy();
+        do v2.destroy();
+
+        return;
+    }
+
+
+}

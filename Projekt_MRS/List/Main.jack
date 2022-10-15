@@ -1,0 +1,29 @@
+class Main{
+
+    function void main(){
+
+        var List l1;
+
+        let l1 = List.new();
+        do l1.insertFront(5);
+        do l1.insertFront(6);
+        do l1.insertFront(7);
+        do l1.insertFront(8);
+        do l1.insertFront(9);
+        do l1.print();
+        do l1.insertBack(1);
+        do l1.insertBack(2);
+        do l1.insertBack(3);
+        do l1.insertBack(4);
+        do l1.insertBack(5);
+        do l1.print();
+        do l1.clear();
+        do l1.print();
+        do l1.destroy();
+
+        return;
+        
+    }
+
+
+}
